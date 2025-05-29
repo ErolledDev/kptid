@@ -34,6 +34,12 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
     pdf.addImage(imgData, 'PNG', 0, 0, 85.60, 53.98, '', 'FAST');
     pdf.save('inc-identification-card.pdf');
   };
+
+  const getBackgroundImage = () => {
+    if (photoUrl === '') return 'none';
+    if (photoUrl === 'default' || !photoUrl) return `url(${defaultBg})`;
+    return `url(${photoUrl})`;
+  };
   
   return (
     <div className="sticky top-8 space-y-6">
@@ -50,20 +56,25 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
       
       <div className="grid grid-cols-1 gap-8">
         {/* Front Card */}
-        <div 
-          id="business-card" 
-          className="w-[342.4px] h-[215.92px] rounded-xl overflow-hidden card-shadow relative bg-white"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url(${photoUrl || defaultBg})`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          <div className="absolute top-0 left-0 w-full h-3 bg-[#009246]" />
-          <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37]" />
+        <div id="business-card" className="w-[342.4px] h-[215.92px] rounded-xl overflow-hidden card-shadow relative bg-white">
+          {/* Background wrapper */}
+          <div 
+            className="absolute inset-3 rounded-lg overflow-hidden"
+            style={{
+              backgroundImage: getBackgroundImage(),
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.55
+            }}
+          />
           
-          <div className="h-full p-6">
+          {/* Borders */}
+          <div className="absolute top-0 left-0 w-full h-3 bg-[#009246] z-10" />
+          <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37] z-10" />
+          
+          {/* Content */}
+          <div className="h-full p-6 relative z-20">
             <div className="flex flex-col h-full justify-between">
               <div>
                 <span className="text-[11px] font-medium text-slate-500 block mb-1 uppercase tracking-wider">Kapatid na:</span>
