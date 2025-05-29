@@ -55,7 +55,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
     },
     {
       id: 'group',
-      label: 'Puro/Group',
+      label: 'Purok/Group',
       placeholder: 'ENTER YOUR GROUP',
       value: cardData.group,
       maxLength: 20
