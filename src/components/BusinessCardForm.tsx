@@ -28,7 +28,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
     {
       id: 'fullName',
       label: 'Full Name',
-      placeholder: 'John Doe',
+      placeholder: 'JOHN DOE',
       value: cardData.fullName,
       maxLength: 50
     },
@@ -37,33 +37,33 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
       label: 'ID Number',
       placeholder: '123 456 789 012',
       value: cardData.number,
-      maxLength: 15 // Including spaces
+      maxLength: 15
     },
     {
       id: 'locale',
       label: 'Locale',
-      placeholder: 'Enter your locale',
+      placeholder: 'ENTER YOUR LOCALE',
       value: cardData.locale,
       maxLength: 20
     },
     {
       id: 'district',
       label: 'District',
-      placeholder: 'Enter your district',
+      placeholder: 'ENTER YOUR DISTRICT',
       value: cardData.district,
       maxLength: 20
     },
     {
       id: 'group',
       label: 'Puro/Group',
-      placeholder: 'Enter your group',
+      placeholder: 'ENTER YOUR GROUP',
       value: cardData.group,
       maxLength: 20
     },
     {
       id: 'qrText',
       label: 'QR Code Text',
-      placeholder: 'Enter text to generate QR code',
+      placeholder: 'ENTER TEXT TO GENERATE QR CODE',
       value: cardData.qrText,
       maxLength: 100
     }
@@ -84,7 +84,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
             transition={{ duration: 0.3, delay: index * 0.1 }}
             className="group"
           >
-            <label htmlFor={field.id} className="label group-focus-within:text-blue-600 transition-colors duration-200">
+            <label htmlFor={field.id} className="label group-focus-within:text-[#009246] transition-colors duration-200">
               {field.label}
             </label>
             <input
@@ -95,7 +95,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
               onChange={handleChange}
               placeholder={field.placeholder}
               maxLength={field.maxLength}
-              className="input-field group-focus-within:border-blue-600 group-focus-within:ring-blue-100"
+              className="input-field group-focus-within:border-[#009246] group-focus-within:ring-[#009246]/20 uppercase"
             />
           </motion.div>
         ))}
@@ -111,18 +111,19 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
             type="file"
             accept="image/*"
             onChange={onPhotoUpload}
-            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none"
+            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#009246]/10 file:text-[#009246] hover:file:bg-[#009246]/20 focus:outline-none"
           />
           <p className="mt-2 text-xs text-slate-500">For best results, use a light-colored or low-opacity image</p>
         </motion.div>
       </form>
       
-      <div className="mt-8 bg-blue-50 rounded-lg p-4">
-        <h3 className="font-medium text-blue-900 mb-2">Tips:</h3>
-        <ul className="text-sm text-blue-800 space-y-1.5 pl-5 list-disc marker:text-blue-400">
+      <div className="mt-8 bg-[#009246]/5 rounded-lg p-4 border border-[#009246]/10">
+        <h3 className="font-medium text-[#009246] mb-2">Tips:</h3>
+        <ul className="text-sm text-slate-700 space-y-1.5 pl-5 list-disc marker:text-[#009246]">
           <li>Fill in all fields for a complete identification card</li>
           <li>ID numbers are automatically formatted (123 456 789 012)</li>
           <li>Optional background image for customization</li>
+          <li>All text will be automatically converted to uppercase</li>
           <li>Download your card when finished</li>
         </ul>
       </div>
