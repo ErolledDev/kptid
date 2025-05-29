@@ -4,6 +4,7 @@ import { CardData } from '../types/types';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { Download } from 'lucide-react';
+import defaultBg from '../assets/default.png';
 
 interface BusinessCardPreviewProps {
   cardData: CardData;
@@ -53,48 +54,49 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           id="business-card" 
           className="w-[342.4px] h-[215.92px] rounded-xl overflow-hidden card-shadow relative bg-white"
           style={{
-            backgroundImage: photoUrl ? `linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url(${photoUrl})` : undefined,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url(${photoUrl || defaultBg})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
           }}
         >
           <div className="absolute top-0 left-0 w-full h-3 bg-[#009246]" />
           <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37]" />
           
-          <div className="h-full p-8">
+          <div className="h-full p-6">
             <div className="flex flex-col h-full justify-between">
               <div>
-                <span className="text-xs font-medium text-slate-500 block mb-1 uppercase tracking-wider">Kapatid na:</span>
-                <h2 className="text-2xl font-bold text-slate-800 truncate mb-4 uppercase tracking-wider">
+                <span className="text-[11px] font-medium text-slate-500 block mb-1 uppercase tracking-wider">Kapatid na:</span>
+                <h2 className="text-lg font-bold text-slate-800 mb-4 uppercase tracking-wider leading-tight line-clamp-2">
                   {fullName || 'YOUR NAME'}
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                 <div className="min-w-0">
-                  <span className="text-xs font-medium text-slate-500 block mb-1 uppercase tracking-wider">Locale</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider truncate">
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Locale</span>
+                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {locale || '-'}
                   </div>
                 </div>
                 
                 <div className="min-w-0">
-                  <span className="text-xs font-medium text-slate-500 block mb-1 uppercase tracking-wider">District</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider truncate">
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">District</span>
+                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {district || '-'}
                   </div>
                 </div>
                 
                 <div className="min-w-0">
-                  <span className="text-xs font-medium text-slate-500 block mb-1 uppercase tracking-wider">Purok/Group</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider truncate">
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Purok/Group</span>
+                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {group || '-'}
                   </div>
                 </div>
                 
                 <div className="min-w-0">
-                  <span className="text-xs font-medium text-slate-500 block mb-1 uppercase tracking-wider">ID Number</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider truncate">
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">ID Number</span>
+                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {number || '-'}
                   </div>
                 </div>
