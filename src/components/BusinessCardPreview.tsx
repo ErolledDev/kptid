@@ -85,21 +85,21 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
               
               <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                 <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Locale</span>
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Lokal ng: </span>
                   <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {locale || '-'}
                   </div>
                 </div>
                 
                 <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">District</span>
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Distrito ng:</span>
                   <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {district || '-'}
                   </div>
                 </div>
                 
                 <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Purok/Group</span>
+                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Purok at Grupo:</span>
                   <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
                     {group || '-'}
                   </div>
