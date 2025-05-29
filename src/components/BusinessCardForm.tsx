@@ -140,7 +140,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           className="group"
         >
           <label className="label group-focus-within:text-inc-green transition-colors duration-200">
-            QR Code Text or Click the Camera to scan it
+            QR Code Text or Click the Camera to scan switch
           </label>
           <div className="flex gap-2">
             <div className="relative flex-1">
