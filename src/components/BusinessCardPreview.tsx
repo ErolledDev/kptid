@@ -14,14 +14,14 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
   
   const handleDownload = async () => {
     try {
-      // Create a temporary container for screenshots
-      const screenshotContainer = document.createElement('div');
-      screenshotContainer.style.position = 'absolute';
-      screenshotContainer.style.left = '-9999px';
-      screenshotContainer.style.top = '-9999px';
-      document.body.appendChild(screenshotContainer);
+      // Create a temporary container with white background
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.left = '-9999px';
+      container.style.background = '#fff';
+      document.body.appendChild(container);
 
-      // Clone the cards for screenshot
+      // Clone the cards
       const frontCard = document.getElementById('front-card');
       const backCard = document.getElementById('back-card');
       
@@ -29,49 +29,79 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
         throw new Error('Card elements not found');
       }
 
-      // Clone and prepare cards for screenshot
+      // Clone and prepare cards
       const frontClone = frontCard.cloneNode(true) as HTMLElement;
       const backClone = backCard.cloneNode(true) as HTMLElement;
       
       [frontClone, backClone].forEach(card => {
         card.style.transform = 'none';
         card.style.position = 'relative';
-        screenshotContainer.appendChild(card);
+        card.style.left = '0';
+        card.style.top = '0';
+        container.appendChild(card);
       });
 
-      // Wait for background images to load
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Pre-load background image if exists
+      const bgImage = photoUrl === 'default' ? defaultBg : photoUrl;
+      if (bgImage && bgImage !== '') {
+        await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = bgImage;
+        }).catch(() => console.warn('Background image failed to load'));
+      }
 
-      // Capture both sides
+      // Canvas options with better quality settings
       const canvasOptions = {
         scale: 4,
         useCORS: true,
-        backgroundColor: '#ffffff',
-        logging: true,
         allowTaint: true,
-        foreignObjectRendering: true
+        backgroundColor: '#ffffff',
+        logging: false,
+        width: 342.4,
+        height: 215.92,
+        onclone: (clonedDoc: Document) => {
+          return new Promise(resolve => {
+            const qrCode = clonedDoc.querySelector('[data-testid="qr-code"]');
+            setTimeout(resolve, qrCode ? 500 : 0);
+          });
+        }
       };
 
-      const frontCanvas = await html2canvas(frontClone, canvasOptions);
-      const backCanvas = await html2canvas(backClone, canvasOptions);
+      // Capture both sides with proper timing
+      const captureCard = async (element: HTMLElement) => {
+        element.style.opacity = '0.99';
+        await new Promise(resolve => setTimeout(resolve, 100));
+        element.style.opacity = '1';
+        
+        return html2canvas(element, canvasOptions);
+      };
 
-      // Create download links
-      const frontLink = document.createElement('a');
-      frontLink.download = 'inc-id-front.png';
-      frontLink.href = frontCanvas.toDataURL('image/png', 1.0);
-      
-      const backLink = document.createElement('a');
-      backLink.download = 'inc-id-back.png';
-      backLink.href = backCanvas.toDataURL('image/png', 1.0);
+      const [frontCanvas, backCanvas] = await Promise.all([
+        captureCard(frontClone),
+        captureCard(backClone)
+      ]);
 
-      // Clean up
-      document.body.removeChild(screenshotContainer);
+      // Download function with proper MIME type
+      const downloadCanvas = (canvas: HTMLCanvasElement, filename: string) => {
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png', 1.0);
+        link.click();
+      };
 
-      // Trigger downloads
-      frontLink.click();
-      setTimeout(() => backLink.click(), 100);
+      // Download both sides
+      downloadCanvas(frontCanvas, 'inc-id-front.png');
+      await new Promise(resolve => setTimeout(resolve, 100));
+      downloadCanvas(backCanvas, 'inc-id-back.png');
+
+      // Cleanup
+      document.body.removeChild(container);
     } catch (error) {
       console.error('Error generating images:', error);
+      alert('Failed to generate ID cards. Please try again.');
     }
   };
 
@@ -111,40 +141,40 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37] z-10" />
           
           {/* Content */}
-          <div className="h-full p-6 relative z-20">
+          <div className="h-full p-5 relative z-20">
             <div className="flex flex-col h-full justify-between">
-              <div>
-                <span className="text-[11px] font-medium text-slate-500 block mb-1 uppercase tracking-wider">Kapatid na:</span>
-                <h2 className="text-lg font-bold text-slate-800 mb-4 uppercase tracking-wider leading-tight line-clamp-2">
+              <div className="mb-2">
+                <span className="text-[11px] font-medium text-slate-500 block uppercase tracking-wider">Kapatid na:</span>
+                <h2 className="text-xl font-bold text-slate-800 uppercase tracking-wider leading-tight break-words">
                   {fullName || 'YOUR NAME'}
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-                <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Lokal ng: </span>
-                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                <div>
+                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Lokal ng:</span>
+                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
                     {locale || '-'}
                   </div>
                 </div>
                 
-                <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Distrito ng:</span>
-                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
+                <div>
+                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Distrito ng:</span>
+                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
                     {district || '-'}
                   </div>
                 </div>
                 
-                <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">Purok at Grupo:</span>
-                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
+                <div>
+                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Purok at Grupo:</span>
+                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
                     {group || '-'}
                   </div>
                 </div>
                 
-                <div className="min-w-0">
-                  <span className="text-[10px] font-medium text-slate-500 block mb-0.5 uppercase tracking-wider">ID Number</span>
-                  <div className="font-medium text-[12px] text-slate-800 uppercase tracking-wider line-clamp-2">
+                <div>
+                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">ID Number:</span>
+                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
                     {number || '-'}
                   </div>
                 </div>
@@ -166,6 +196,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
                 level="H"
                 fgColor="#1E293B"
                 bgColor="#FFFFFF"
+                data-testid="qr-code"
               />
             </div>
             
