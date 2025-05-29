@@ -26,6 +26,13 @@ function App() {
               icon: <Icons.component className="h-4 w-4" />,
             },
           }}
+          preview={
+            <img
+              src="https://i.ibb.co/TqKhtFjR/hero-bg.png"
+              alt="INC ID Card Preview"
+              className="w-full h-auto object-contain animate-fade-in"
+            />
+          }
         />
         
         <section id="generator" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white">

@@ -48,7 +48,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
     {
       id: 'fullName',
       label: 'Full Name',
-      placeholder: 'JOHN DOE',
+      placeholder: 'JUAN DELA CRUZ',
       value: cardData.fullName,
       maxLength: 50,
       icon: <ChevronRight className="h-4 w-4" />
@@ -63,24 +63,24 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
     },
     {
       id: 'locale',
-      label: 'Locale',
-      placeholder: 'ENTER YOUR LOCALE',
+      label: 'Lokal',
+      placeholder: 'ENTER YOUR LOKAL',
       value: cardData.locale,
       maxLength: 20,
       icon: <ChevronRight className="h-4 w-4" />
     },
     {
       id: 'district',
-      label: 'District',
-      placeholder: 'ENTER YOUR DISTRICT',
+      label: 'Distrito',
+      placeholder: 'ENTER YOUR DISTRITO',
       value: cardData.district,
       maxLength: 20,
       icon: <ChevronRight className="h-4 w-4" />
     },
     {
       id: 'group',
-      label: 'Purok/Group',
-      placeholder: 'ENTER YOUR GROUP',
+      label: 'Purok at Group',
+      placeholder: 'ENTER YOUR PUROK AT GRUPO example: 4-2',
       value: cardData.group,
       maxLength: 20,
       icon: <ChevronRight className="h-4 w-4" />
@@ -140,7 +140,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           className="group"
         >
           <label className="label group-focus-within:text-inc-green transition-colors duration-200">
-            QR Code Text
+            QR Code Text or Click the Camera to scan it
           </label>
           <div className="flex gap-2">
             <div className="relative flex-1">
