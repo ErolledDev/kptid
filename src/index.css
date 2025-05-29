@@ -4,18 +4,38 @@
 
 :root {
   --inc-green: #009246;
+  --inc-green-dark: #007a3d;
   --inc-red: #CE2B37;
+  --inc-red-dark: #B82532;
+  --inc-white: #ffffff;
+  --inc-black: #1a1a1a;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Base Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply text-slate-900 bg-gradient-to-br from-slate-50 to-slate-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
 }
 
+/* Component Styles */
 @layer components {
   .input-field {
-    @apply w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 transition-all duration-200 outline-none text-slate-800 bg-white shadow-sm;
+    @apply w-full px-4 py-2.5 border border-slate-300 rounded-lg 
+           focus:ring-2 focus:ring-[var(--inc-green)]/20 focus:border-inc-green
+           transition-all duration-200 outline-none text-slate-800 
+           bg-white shadow-sm;
   }
   
   .label {
@@ -23,17 +43,44 @@ body {
   }
   
   .card-shadow {
-    @apply shadow-[0_8px_30px_rgb(0,0,0,0.08)];
+    @apply shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-shadow duration-300;
+  }
+  
+  .btn {
+    @apply px-4 py-2.5 rounded-lg font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-inc-green text-white hover:bg-inc-green-dark
+           focus:ring-inc-green/50 shadow-lg shadow-inc-green/25;
+  }
+  
+  .btn-secondary {
+    @apply bg-white/90 backdrop-blur-sm text-inc-green hover:bg-white
+           focus:ring-white/50 border border-white/20;
+  }
+
+  .feature-card {
+    @apply bg-white rounded-2xl p-8 shadow-lg shadow-inc-green/5 
+           hover:shadow-xl hover:shadow-inc-green/10 transition-all duration-300
+           border border-slate-100;
+  }
+
+  .feature-icon {
+    @apply bg-gradient-to-br from-inc-green/10 to-inc-green/5
+           ring-1 ring-inc-green/20 shadow-inner;
   }
 }
 
+/* Card Flip Animation */
 .business-card {
   aspect-ratio: 1.586 / 1;
   perspective: 1000px;
 }
 
 .card-inner {
-  transition: transform 0.8s;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
 
@@ -48,4 +95,18 @@ body {
 
 .card-back {
   transform: rotateY(180deg);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-visible {
+  @apply outline-none ring-2 ring-inc-green ring-offset-2;
 }
