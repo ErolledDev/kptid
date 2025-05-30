@@ -144,40 +144,40 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           )}
           
           {/* Content */}
-          <div className="h-full p-5 relative z-20">
+          <div className="h-full p-6 relative z-20">
             <div className="flex flex-col h-full justify-between">
-              <div className="mb-2">
-                <span className="text-[11px] font-medium text-slate-500 block uppercase tracking-wider">Kapatid na:</span>
-                <h2 className="text-xl font-bold text-slate-800 uppercase tracking-wider leading-tight break-words">
+              <div className="mb-4">
+                <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-[0.1em] mb-1">Kapatid na:</span>
+                <h2 className="text-2xl font-bold text-slate-800 uppercase tracking-wider leading-tight break-words">
                   {fullName || 'YOUR NAME'}
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 mb-4 gap-x-4 gap-y-2">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
                 <div>
-                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Lokal ng:</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
+                  <span className="text-[9px] font-medium text-slate-500 block uppercase tracking-[0.15em] mb-0.5">Lokal ng:</span>
+                  <div className="font-medium text-[13px] text-slate-800 uppercase tracking-wider break-words">
                     {locale || '-'}
                   </div>
                 </div>
                 
                 <div>
-                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Distrito ng:</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
+                  <span className="text-[9px] font-medium text-slate-500 block uppercase tracking-[0.15em] mb-0.5">Distrito ng:</span>
+                  <div className="font-medium text-[13px] text-slate-800 uppercase tracking-wider break-words">
                     {district || '-'}
                   </div>
                 </div>
                 
                 <div>
-                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Purok at Grupo:</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
+                  <span className="text-[9px] font-medium text-slate-500 block uppercase tracking-[0.15em] mb-0.5">Purok at Grupo:</span>
+                  <div className="font-medium text-[13px] text-slate-800 uppercase tracking-wider break-words">
                     {group || '-'}
                   </div>
                 </div>
                 
                 <div>
-                  <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">ID Number:</span>
-                  <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
+                  <span className="text-[9px] font-medium text-slate-500 block uppercase tracking-[0.15em] mb-0.5">ID Number:</span>
+                  <div className="font-medium text-[13px] text-slate-800 uppercase tracking-wider break-words">
                     {number || '-'}
                   </div>
                 </div>
@@ -195,9 +195,9 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
             </>
           )}
           
-          <div className="h-full flex flex-col items-center justify-center space-y-4 py-8">
+          <div className="h-full flex flex-col items-center justify-center py-8">
             {qrText && (
-              <div className="p-3 bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
+              <div className="p-3 bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mb-4">
                 <QRCode
                   value={qrText}
                   size={120}
@@ -209,11 +209,18 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
               </div>
             )}
             
-            <div className="text-center space-y-2">
-              <span className="font-medium text-slate-700 tracking-wider uppercase">{number}</span>
+            <div className="w-full px-8">
+              <div className="text-center mb-2">
+                <span className="font-medium text-[13px] text-slate-700 tracking-[0.15em] uppercase">{number}</span>
+              </div>
               {validThru && (
-                <div className="text-sm text-slate-600 tracking-wider uppercase absolute bottom-8 right-8">
-                  Valid Thru: {validThru}
+                <div className="absolute bottom-6 right-6">
+                  <div className="text-[9px] font-medium text-slate-500 uppercase tracking-[0.15em] mb-0.5 text-right">
+                    Valid Thru
+                  </div>
+                  <div className="font-medium text-[13px] text-slate-800 uppercase tracking-[0.1em]">
+                    {validThru}
+                  </div>
                 </div>
               )}
             </div>
