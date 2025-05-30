@@ -132,7 +132,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
         >
           <div className="group">
             <label htmlFor="number" className="label group-focus-within:text-inc-green transition-colors duration-200">
-              ID Number <span className="text-slate-400 text-xs">(12 chars)</span>
+              ID Number <span className="text-slate-400 text-xs"></span>
             </label>
             <div className="relative">
               <input
@@ -153,7 +153,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
 
           <div className="group">
             <label htmlFor="group" className="label group-focus-within:text-inc-green transition-colors duration-200">
-              Purok at Group <span className="text-slate-400 text-xs">(4 chars)</span>
+              Purok at Group <span className="text-slate-400 text-xs"></span>
             </label>
             <div className="relative">
               <input
