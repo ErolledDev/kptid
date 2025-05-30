@@ -104,64 +104,73 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
         </div>
       </div>
       
-      <form className="space-y-5">
-        {formFields.map((field, index) => (
-          <motion.div 
-            key={field.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
-            className="group relative"
-          >
-            <label htmlFor={field.id} className="label group-focus-within:text-inc-green transition-colors duration-200">
-              {field.label}
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                id={field.id}
-                name={field.id}
-                value={field.value}
-                onChange={handleChange}
-                placeholder={field.placeholder}
-                maxLength={field.maxLength}
-                className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
-              />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
-                {field.icon}
+      <form className="space-y-6">
+        {/* Main Information */}
+        <div className="space-y-5">
+          {formFields.map((field, index) => (
+            <motion.div 
+              key={field.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+              className="group"
+            >
+              <label htmlFor={field.id} className="label group-focus-within:text-inc-green transition-colors duration-200">
+                {field.label}
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id={field.id}
+                  name={field.id}
+                  value={field.value}
+                  onChange={handleChange}
+                  placeholder={field.placeholder}
+                  maxLength={field.maxLength}
+                  className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
+                  {field.icon}
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
 
-        {/* ID Number in full width for mobile, and other fields in a row */}
+        {/* ID Number Section */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: formFields.length * 0.1 }}
-          className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4"
+          className="group"
         >
-          <div className="group sm:col-span-3 md:col-span-1">
-            <label htmlFor="number" className="label group-focus-within:text-inc-green transition-colors duration-200">
-              ID Number
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                id="number"
-                name="number"
-                value={cardData.number}
-                onChange={handleChange}
-                placeholder="123 456 789 012"
-                maxLength={14}
-                className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
-              />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
-                <ChevronRight className="h-4 w-4" />
-              </div>
+          <label htmlFor="number" className="label group-focus-within:text-inc-green transition-colors duration-200">
+            ID Number
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              id="number"
+              name="number"
+              value={cardData.number}
+              onChange={handleChange}
+              placeholder="123 456 789 012"
+              maxLength={14}
+              className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
+            />
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
+              <ChevronRight className="h-4 w-4" />
             </div>
           </div>
+        </motion.div>
 
+        {/* Additional Details */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: (formFields.length + 1) * 0.1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+        >
           <div className="group">
             <label htmlFor="group" className="label group-focus-within:text-inc-green transition-colors duration-200">
               Purok at Group
@@ -205,10 +214,11 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           </div>
         </motion.div>
 
+        {/* QR Code Section */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: (formFields.length + 1) * 0.1 }}
+          transition={{ duration: 0.3, delay: (formFields.length + 2) * 0.1 }}
           className="group"
         >
           <label className="label group-focus-within:text-inc-green transition-colors duration-200">
@@ -231,7 +241,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
             <button
               type="button"
               onClick={() => setShowScanner(true)}
-              className="px-4 py-2 bg-inc-green text-white rounded-lg hover:bg-inc-green-dark transition-colors duration-200 hover:shadow-md flex items-center justify-center gap-2"
+              className="px-4 py-2 bg-inc-green text-white rounded-lg hover:bg-inc-green-dark transition-colors duration-200 hover:shadow-md flex items-center justify-center gap-2 min-w-[120px]"
               title="Scan QR Code"
             >
               <Camera className="h-5 w-5" />
@@ -240,96 +250,95 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           </div>
         </motion.div>
 
+        {/* Card Style Section */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: (formFields.length + 2) * 0.1 }}
-          className="pt-2"
+          transition={{ duration: 0.3, delay: (formFields.length + 3) * 0.1 }}
+          className="space-y-5 pt-2"
         >
-          <label className="label mb-3">Card Style</label>
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="space-y-4">
-              <label className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              name="showBorder"
+              checked={cardData.showBorder}
+              onChange={handleChange}
+              className="w-4 h-4 text-inc-green rounded border-slate-300 focus:ring-inc-green/20"
+            />
+            <span className="text-sm font-medium text-slate-700">Show Border</span>
+          </div>
+
+          <div>
+            <label className="label mb-3">Card Background</label>
+            <div className="grid grid-cols-3 gap-3">
+              <button
+                type="button"
+                onClick={() => handleBgOptionChange('default')}
+                className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 ${
+                  bgOption === 'default'
+                    ? 'border-inc-green bg-inc-green/5 shadow-inc-green/10'
+                    : 'border-slate-200 hover:border-inc-green/50 hover:bg-inc-green/5'
+                }`}
+              >
+                <ImageIcon className={`h-6 w-6 mb-2 ${bgOption === 'default' ? 'text-inc-green' : 'text-slate-600'}`} />
+                <span className={`text-sm font-medium ${bgOption === 'default' ? 'text-inc-green' : 'text-slate-600'}`}>
+                  Default
+                </span>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => handleBgOptionChange('blank')}
+                className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 ${
+                  bgOption === 'blank'
+                    ? 'border-inc-green bg-inc-green/5 shadow-inc-green/10'
+                    : 'border-slate-200 hover:border-inc-green/50 hover:bg-inc-green/5'
+                }`}
+              >
+                <X className={`h-6 w-6 mb-2 ${bgOption === 'blank' ? 'text-inc-green' : 'text-slate-600'}`} />
+                <span className={`text-sm font-medium ${bgOption === 'blank' ? 'text-inc-green' : 'text-slate-600'}`}>
+                  Blank
+                </span>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => handleBgOptionChange('custom')}
+                className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 ${
+                  bgOption === 'custom'
+                    ? 'border-inc-green bg-inc-green/5 shadow-inc-green/10'
+                    : 'border-slate-200 hover:border-inc-green/50 hover:bg-inc-green/5'
+                }`}
+              >
+                <Upload className={`h-6 w-6 mb-2 ${bgOption === 'custom' ? 'text-inc-green' : 'text-slate-600'}`} />
+                <span className={`text-sm font-medium ${bgOption === 'custom' ? 'text-inc-green' : 'text-slate-600'}`}>
+                  Upload
+                </span>
+              </button>
+            </div>
+
+            {bgOption === 'custom' && (
+              <div className="relative mt-4">
                 <input
-                  type="checkbox"
-                  name="showBorder"
-                  checked={cardData.showBorder}
-                  onChange={handleChange}
-                  className="w-4 h-4 text-inc-green rounded border-slate-300 focus:ring-inc-green/20"
+                  type="file"
+                  accept="image/*"
+                  onChange={onPhotoUpload}
+                  className="block w-full text-sm text-slate-500
+                    file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0
+                    file:text-sm file:font-semibold file:bg-inc-green/10
+                    file:text-inc-green hover:file:bg-inc-green/20
+                    focus:outline-none cursor-pointer"
                 />
-                <span className="text-sm font-medium text-slate-700">Show Border</span>
-              </label>
-            </div>
+              </div>
+            )}
           </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            <button
-              type="button"
-              onClick={() => handleBgOptionChange('default')}
-              className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 ${
-                bgOption === 'default'
-                  ? 'border-inc-green bg-inc-green/5 shadow-inc-green/10'
-                  : 'border-slate-200 hover:border-inc-green/50 hover:bg-inc-green/5'
-              }`}
-            >
-              <ImageIcon className={`h-6 w-6 mb-2 ${bgOption === 'default' ? 'text-inc-green' : 'text-slate-600'}`} />
-              <span className={`text-sm font-medium ${bgOption === 'default' ? 'text-inc-green' : 'text-slate-600'}`}>
-                Default
-              </span>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => handleBgOptionChange('blank')}
-              className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 ${
-                bgOption === 'blank'
-                  ? 'border-inc-green bg-inc-green/5 shadow-inc-green/10'
-                  : 'border-slate-200 hover:border-inc-green/50 hover:bg-inc-green/5'
-              }`}
-            >
-              <X className={`h-6 w-6 mb-2 ${bgOption === 'blank' ? 'text-inc-green' : 'text-slate-600'}`} />
-              <span className={`text-sm font-medium ${bgOption === 'blank' ? 'text-inc-green' : 'text-slate-600'}`}>
-                Blank
-              </span>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => handleBgOptionChange('custom')}
-              className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 ${
-                bgOption === 'custom'
-                  ? 'border-inc-green bg-inc-green/5 shadow-inc-green/10'
-                  : 'border-slate-200 hover:border-inc-green/50 hover:bg-inc-green/5'
-              }`}
-            >
-              <Upload className={`h-6 w-6 mb-2 ${bgOption === 'custom' ? 'text-inc-green' : 'text-slate-600'}`} />
-              <span className={`text-sm font-medium ${bgOption === 'custom' ? 'text-inc-green' : 'text-slate-600'}`}>
-                Upload
-              </span>
-            </button>
-          </div>
-
-          {bgOption === 'custom' && (
-            <div className="relative mt-4">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={onPhotoUpload}
-                className="block w-full text-sm text-slate-500
-                  file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0
-                  file:text-sm file:font-semibold file:bg-inc-green/10
-                  file:text-inc-green hover:file:bg-inc-green/20
-                  focus:outline-none cursor-pointer"
-              />
-            </div>
-          )}
         </motion.div>
       </form>
       
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: (formFields.length + 3) * 0.1 }}
+        transition={{ duration: 0.3, delay: (formFields.length + 4) * 0.1 }}
         className="mt-8 bg-blue-50 rounded-lg p-4 flex items-start gap-3"
       >
         <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
@@ -341,10 +350,6 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
             <li className="flex items-center gap-2">
               <ChevronRight className="h-3 w-3 text-blue-500" />
               Fill in all fields for a complete identification card
-            </li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="h-3 w-3 text-blue-500" />
-              ID numbers are automatically formatted (123 456 789 012)
             </li>
             <li className="flex items-center gap-2">
               <ChevronRight className="h-3 w-3 text-blue-500" />
