@@ -106,7 +106,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
 
   const getBackgroundImage = () => {
     if (photoUrl === '') return 'none';
-    if (photoUrl === 'default' || !photoUrl) return `url(https://i.ibb.co/JFvtGtPJ/default-bg.png)`;
+    if (photoUrl === 'default' || !photoUrl) return `url(https://i.ibb.co/8gyW0rJW/default.jpg)`;
     return `url(${photoUrl})`;
   };
   
