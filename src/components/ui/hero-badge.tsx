@@ -17,9 +17,9 @@ interface HeroBadgeProps {
 }
 
 const badgeVariants: Record<string, string> = {
-  default: "bg-background hover:bg-muted",
-  outline: "border-2 hover:bg-muted",
-  ghost: "hover:bg-muted/50",
+  default: "bg-inc-red/10 text-inc-red hover:bg-inc-red/20",
+  outline: "border-2 border-inc-red text-inc-red hover:bg-inc-red/10",
+  ghost: "text-inc-red hover:bg-inc-red/10",
 };
 
 const sizeVariants: Record<string, string> = {
@@ -49,7 +49,7 @@ export default function HeroBadge({
   const wrapperProps = { onClick };
 
   const baseClassName = cn(
-    "inline-flex items-center rounded-full border transition-colors",
+    "inline-flex items-center rounded-full transition-colors",
     badgeVariants[variant],
     sizeVariants[size],
     className
@@ -70,7 +70,7 @@ export default function HeroBadge({
       >
         {icon && (
           <motion.div
-            className="text-foreground/60 transition-colors group-hover:text-primary"
+            className="text-inc-red transition-colors group-hover:text-inc-red"
             variants={iconAnimationVariants}
             initial="initial"
             animate={controls}
@@ -81,7 +81,7 @@ export default function HeroBadge({
         )}
         <span>{text}</span>
         {endIcon && (
-          <motion.div className="text-foreground/60">{endIcon}</motion.div>
+          <motion.div className="text-inc-red">{endIcon}</motion.div>
         )}
       </motion.div>
     </BadgeWrapper>

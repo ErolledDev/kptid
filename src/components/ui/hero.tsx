@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -38,10 +36,10 @@ function HeroContent({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease }}
       >
-        {title} {titleHighlight && <span className="text-primary">{titleHighlight}</span>}
+        {title} {titleHighlight && <span className="text-inc-green">{titleHighlight}</span>}
       </motion.h1>
       <motion.p
-        className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8"
+        className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.8, ease }}
@@ -58,8 +56,9 @@ function HeroContent({
           <a
             href={primaryAction.href}
             className={cn(
-              buttonVariants({ size: "lg" }),
-              "gap-2 w-full sm:w-auto justify-center"
+              "bg-inc-green hover:bg-inc-green-dark text-white transition-colors",
+              "h-11 px-8 rounded-md inline-flex items-center justify-center",
+              "gap-2 w-full sm:w-auto"
             )}
           >
             {primaryAction.icon}
@@ -70,8 +69,9 @@ function HeroContent({
           <a
             href={secondaryAction.href}
             className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "gap-2 w-full sm:w-auto justify-center"
+              "bg-inc-red hover:bg-inc-red-dark text-white transition-colors",
+              "h-11 px-8 rounded-md inline-flex items-center justify-center",
+              "gap-2 w-full sm:w-auto border border-inc-red/20"
             )}
           >
             {secondaryAction.icon}

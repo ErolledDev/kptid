@@ -3,10 +3,12 @@ import { BusinessCardGenerator } from './components/BusinessCardGenerator';
 import { Hero } from './components/ui/hero';
 import { Icons } from './components/ui/icons';
 import { AlertTriangle } from 'lucide-react';
+import { Navigation } from './components/ui/Navigation';
 
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+      <Navigation />
       <main className="flex-1">
         <Hero
           pill={{
