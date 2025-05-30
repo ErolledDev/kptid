@@ -6,7 +6,7 @@ import { Camera, Image as ImageIcon, Upload, X, ChevronRight } from 'lucide-reac
 
 interface BusinessCardFormProps {
   cardData: CardData;
-  onInputChange: (name: keyof CardData, value: string) => void;
+  onInputChange: (name: keyof CardData, value: string | boolean) => void;
   onPhotoUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -19,12 +19,23 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
   const [bgOption, setBgOption] = useState<'default' | 'blank' | 'custom'>('blank');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name === 'number') {
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      onInputChange(name as keyof CardData, checked);
+    } else if (name === 'number') {
       // Limit to 12 characters and format
       const cleanValue = value.replace(/\s/g, '').slice(0, 12);
       const formattedValue = cleanValue.replace(/(.{3})/g, '$1 ').trim();
       onInputChange(name as keyof CardData, formattedValue);
+    } else if (name === 'validThru') {
+      // Format MM/YY
+      const cleanValue = value.replace(/[^\d]/g, '').slice(0, 4);
+      if (cleanValue.length >= 2) {
+        const formattedValue = `${cleanValue.slice(0, 2)}/${cleanValue.slice(2)}`;
+        onInputChange(name as keyof CardData, formattedValue);
+      } else {
+        onInputChange(name as keyof CardData, cleanValue);
+      }
     } else if (name === 'group') {
       // Limit to 4 characters
       const limitedValue = value.slice(0, 4);
@@ -123,16 +134,16 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           </motion.div>
         ))}
 
-        {/* ID Number and Purok at Group in one row */}
+        {/* ID Number, Purok at Group, and Valid Thru in one row */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: formFields.length * 0.1 }}
-          className="grid grid-cols-2 gap-4"
+          className="grid grid-cols-3 gap-4"
         >
           <div className="group">
             <label htmlFor="number" className="label group-focus-within:text-inc-green transition-colors duration-200">
-              ID Number <span className="text-slate-400 text-xs"></span>
+              ID Number
             </label>
             <div className="relative">
               <input
@@ -153,7 +164,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
 
           <div className="group">
             <label htmlFor="group" className="label group-focus-within:text-inc-green transition-colors duration-200">
-              Purok at Group <span className="text-slate-400 text-xs"></span>
+              Purok at Group
             </label>
             <div className="relative">
               <input
@@ -164,6 +175,27 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
                 onChange={handleChange}
                 placeholder="4-2"
                 maxLength={4}
+                className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
+                <ChevronRight className="h-4 w-4" />
+              </div>
+            </div>
+          </div>
+
+          <div className="group">
+            <label htmlFor="validThru" className="label group-focus-within:text-inc-green transition-colors duration-200">
+              Valid Thru
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                id="validThru"
+                name="validThru"
+                value={cardData.validThru}
+                onChange={handleChange}
+                placeholder="MM/YY"
+                maxLength={5}
                 className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
@@ -213,8 +245,23 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           transition={{ duration: 0.3, delay: (formFields.length + 2) * 0.1 }}
           className="pt-2"
         >
-          <label className="label mb-3">Background Image</label>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <label className="label mb-3">Card Style</label>
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="space-y-4">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="showBorder"
+                  checked={cardData.showBorder}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-inc-green rounded border-slate-300 focus:ring-inc-green/20"
+                />
+                <span className="text-sm font-medium text-slate-700">Show Border</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
             <button
               type="button"
               onClick={() => handleBgOptionChange('default')}
@@ -262,7 +309,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           </div>
 
           {bgOption === 'custom' && (
-            <div className="relative">
+            <div className="relative mt-4">
               <input
                 type="file"
                 accept="image/*"

@@ -9,7 +9,7 @@ interface BusinessCardPreviewProps {
 }
 
 export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardData }) => {
-  const { fullName, number, locale, district, group, qrText, photoUrl } = cardData;
+  const { fullName, number, locale, district, group, qrText, photoUrl, validThru, showBorder } = cardData;
   
   const handleDownload = async () => {
     try {
@@ -136,8 +136,12 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           />
           
           {/* Borders */}
-          <div className="absolute top-0 left-0 w-full h-3 bg-[#009246] z-10" />
-          <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37] z-10" />
+          {showBorder && (
+            <>
+              <div className="absolute top-0 left-0 w-full h-3 bg-[#009246] z-10" />
+              <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37] z-10" />
+            </>
+          )}
           
           {/* Content */}
           <div className="h-full p-5 relative z-20">
@@ -184,8 +188,12 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
         
         {/* Back Card */}
         <div id="back-card" className="w-[342.4px] h-[215.92px] rounded-xl overflow-hidden card-shadow relative bg-white">
-          <div className="absolute top-0 left-0 w-full h-3 bg-[#009246]" />
-          <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37]" />
+          {showBorder && (
+            <>
+              <div className="absolute top-0 left-0 w-full h-3 bg-[#009246]" />
+              <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37]" />
+            </>
+          )}
           
           <div className="h-full flex flex-col items-center justify-center space-y-4 py-8">
             {qrText && (
@@ -201,8 +209,13 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
               </div>
             )}
             
-            <div className="text-center">
+            <div className="text-center space-y-2">
               <span className="font-medium text-slate-700 tracking-wider uppercase">{number}</span>
+              {validThru && (
+                <div className="text-sm text-slate-600 tracking-wider uppercase absolute bottom-8 right-8">
+                  Valid Thru: {validThru}
+                </div>
+              )}
             </div>
           </div>
         </div>

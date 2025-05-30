@@ -12,10 +12,12 @@ export const BusinessCardGenerator: React.FC = () => {
     district: '',
     group: '',
     qrText: '',
-    photoUrl: ''
+    photoUrl: '',
+    validThru: '',
+    showBorder: true
   });
   
-  const handleInputChange = (name: keyof CardData, value: string) => {
+  const handleInputChange = (name: keyof CardData, value: string | boolean) => {
     setCardData(prev => ({
       ...prev,
       [name]: value

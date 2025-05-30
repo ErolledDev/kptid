@@ -6,4 +6,6 @@ export interface CardData {
   group: string;
   qrText: string;
   photoUrl: string;
+  validThru: string;
+  showBorder: boolean;
 }
