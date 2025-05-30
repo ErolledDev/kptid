@@ -72,9 +72,9 @@ export const Navigation = () => {
                     alt="Profile"
                     className="w-32 h-32 rounded-full object-cover mb-4 ring-4 ring-inc-green/20"
                   />
-                  <h4 className="text-xl font-semibold text-slate-800 mb-2">kaptid na: Cedrick</h4>
+                  <h4 className="text-xl font-semibold text-slate-800 mb-2">ka: Cedrick</h4>
                   <p className="text-slate-600 mb-4">Web Developer & INC Member</p>
-                  <a href="www.facebook.com">faecbook</a>
+                  <a className="font-medium text-slate-800 mb-2" href="https://www.facebook.com/cedong1022">👉 Facebook </a>
                   <p className="text-slate-600 leading-relaxed">
                     I created this ID generator tool to help fellow church members create customized yet professional-looking identification cards. 
                     While this is not an official INC tool, it's made with love and respect for our church community.
