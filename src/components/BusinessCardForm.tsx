@@ -134,14 +134,14 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           </motion.div>
         ))}
 
-        {/* ID Number, Purok at Group, and Valid Thru in one row */}
+        {/* ID Number in full width for mobile, and other fields in a row */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: formFields.length * 0.1 }}
-          className="grid grid-cols-3 gap-4"
+          className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4"
         >
-          <div className="group">
+          <div className="group sm:col-span-3 md:col-span-1">
             <label htmlFor="number" className="label group-focus-within:text-inc-green transition-colors duration-200">
               ID Number
             </label>
@@ -231,10 +231,11 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
             <button
               type="button"
               onClick={() => setShowScanner(true)}
-              className="px-3 py-2 bg-inc-green text-white rounded-lg hover:bg-inc-green-dark transition-colors duration-200 hover:shadow-md flex items-center justify-center"
+              className="px-4 py-2 bg-inc-green text-white rounded-lg hover:bg-inc-green-dark transition-colors duration-200 hover:shadow-md flex items-center justify-center gap-2"
               title="Scan QR Code"
             >
               <Camera className="h-5 w-5" />
+              <span className="hidden sm:inline">Scan QR</span>
             </button>
           </div>
         </motion.div>

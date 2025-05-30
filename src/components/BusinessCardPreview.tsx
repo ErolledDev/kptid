@@ -146,14 +146,14 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           {/* Content */}
           <div className="h-full p-6 relative z-20">
             <div className="flex flex-col h-full justify-between">
-              <div className="mb-4">
+              <div>
                 <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-[0.1em] mb-1">Kapatid na:</span>
                 <h2 className="text-2xl font-bold text-slate-800 uppercase tracking-wider leading-tight break-words">
                   {fullName || 'YOUR NAME'}
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-4">
                 <div>
                   <span className="text-[9px] font-medium text-slate-500 block uppercase tracking-[0.15em] mb-0.5">Lokal ng:</span>
                   <div className="font-medium text-[13px] text-slate-800 uppercase tracking-wider break-words">
@@ -210,15 +210,15 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
             )}
             
             <div className="w-full px-8">
-              <div className="text-center mb-2">
-                <span className="font-medium text-[13px] text-slate-700 tracking-[0.15em] uppercase">{number}</span>
+              <div className="text-center mb-4">
+                <span className="font-medium text-[16px] text-slate-600 tracking-[0.15em] uppercase">{number}</span>
               </div>
               {validThru && (
-                <div className="absolute bottom-6 right-6">
-                  <div className="text-[9px] font-medium text-slate-500 uppercase tracking-[0.15em] mb-0.5 text-right">
+                <div className="absolute bottom-5 right-5">
+                  <div className="text-[5px] font-medium text-slate-500 uppercase tracking-[0.15em] mb-0.5 text-right">
                     Valid Thru
                   </div>
-                  <div className="font-medium text-[13px] text-slate-800 uppercase tracking-[0.1em]">
+                  <div className="font-medium text-[11px] text-slate-700 uppercase tracking-[0.1em] text-right">
                     {validThru}
                   </div>
                 </div>
