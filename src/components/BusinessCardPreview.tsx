@@ -150,7 +150,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+              <div className="grid grid-cols-2 mb-4 gap-x-4 gap-y-2">
                 <div>
                   <span className="text-[10px] font-medium text-slate-500 block uppercase tracking-wider">Lokal ng:</span>
                   <div className="font-medium text-sm text-slate-800 uppercase tracking-wider break-words">
