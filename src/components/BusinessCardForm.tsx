@@ -16,13 +16,19 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
   onPhotoUpload
 }) => {
   const [showScanner, setShowScanner] = useState(false);
-  const [bgOption, setBgOption] = useState<'default' | 'blank' | 'custom'>('default');
+  const [bgOption, setBgOption] = useState<'default' | 'blank' | 'custom'>('blank');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'number') {
-      const formattedValue = value.replace(/\s/g, '').replace(/(.{3})/g, '$1 ').trim();
+      // Limit to 12 characters and format
+      const cleanValue = value.replace(/\s/g, '').slice(0, 12);
+      const formattedValue = cleanValue.replace(/(.{3})/g, '$1 ').trim();
       onInputChange(name as keyof CardData, formattedValue);
+    } else if (name === 'group') {
+      // Limit to 4 characters
+      const limitedValue = value.slice(0, 4);
+      onInputChange(name as keyof CardData, limitedValue);
     } else {
       onInputChange(name as keyof CardData, value);
     }
@@ -55,10 +61,10 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
     },
     {
       id: 'number',
-      label: 'ID Number',
+      label: 'ID Number (12 characters)',
       placeholder: '123 456 789 012',
       value: cardData.number,
-      maxLength: 15,
+      maxLength: 14, // Account for spaces
       icon: <ChevronRight className="h-4 w-4" />
     },
     {
@@ -79,10 +85,10 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
     },
     {
       id: 'group',
-      label: 'Purok at Group',
-      placeholder: 'ENTER YOUR PUROK AT GRUPO example: 4-2',
+      label: 'Purok at Group (4 characters)',
+      placeholder: '4-2',
       value: cardData.group,
-      maxLength: 20,
+      maxLength: 4,
       icon: <ChevronRight className="h-4 w-4" />
     }
   ];
@@ -140,7 +146,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           className="group"
         >
           <label className="label group-focus-within:text-inc-green transition-colors duration-200">
-            QR Code Text or Click the Camera to scan switch
+            QR Code Text
           </label>
           <div className="flex gap-2">
             <div className="relative flex-1">
@@ -267,7 +273,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
                 <ChevronRight className="h-3 w-3 text-blue-500" />
                 All text will be automatically converted to uppercase
               </li>
-               <li className="flex items-center gap-2">
+              <li className="flex items-center gap-2">
                 <ChevronRight className="h-3 w-3 text-blue-500" />
                 Print the ID card wallet size
               </li>
