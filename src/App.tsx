@@ -30,7 +30,7 @@ function App() {
           }}
           preview={
             <img
-              src="https://i.ibb.co/TqKhtFjR/hero-bg.png"
+              src="https://i.ibb.co/VpvCwdMk/hero-image.png"
               alt="INC ID Card Preview"
               className="w-full h-auto object-contain animate-fade-in"
             />
