@@ -267,6 +267,10 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
                 <ChevronRight className="h-3 w-3 text-blue-500" />
                 All text will be automatically converted to uppercase
               </li>
+               <li className="flex items-center gap-2">
+                <ChevronRight className="h-3 w-3 text-blue-500" />
+                Print the ID card wallet size
+              </li>
             </ul>
           </div>
         </div>

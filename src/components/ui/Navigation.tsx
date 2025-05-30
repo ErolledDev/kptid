@@ -26,7 +26,7 @@ export const Navigation = () => {
             <span className="text-sm font-medium">About</span>
           </a>
           <a
-            href="#directory"
+            href="https://directory.iglesianicristo.net/"
             className="flex items-center gap-2 px-4 py-2 rounded-full text-inc-green hover:bg-inc-green/10 transition-colors duration-200"
           >
             <BookOpen className="w-5 h-5" />
