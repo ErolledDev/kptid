@@ -197,7 +197,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           
           <div className="h-full flex flex-col items-center justify-center py-8">
             {qrText && (
-              <div className="p-3 bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mb-4">
+              <div className="p-3 bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
                 <QRCode
                   value={qrText}
                   size={120}
