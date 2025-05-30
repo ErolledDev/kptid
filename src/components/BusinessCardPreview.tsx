@@ -3,7 +3,6 @@ import QRCode from 'react-qr-code';
 import { CardData } from '../types/types';
 import html2canvas from 'html2canvas';
 import { Download } from 'lucide-react';
-import defaultBg from '../assets/default.png';
 
 interface BusinessCardPreviewProps {
   cardData: CardData;
@@ -42,7 +41,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
       });
 
       // Pre-load background image if exists
-      const bgImage = photoUrl === 'default' ? defaultBg : photoUrl;
+      const bgImage = photoUrl === 'default' ? 'https://i.ibb.co/JFvtGtPJ/default-bg.png' : photoUrl;
       if (bgImage && bgImage !== '') {
         await new Promise((resolve, reject) => {
           const img = new Image();
@@ -107,7 +106,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
 
   const getBackgroundImage = () => {
     if (photoUrl === '') return 'none';
-    if (photoUrl === 'default' || !photoUrl) return `url(${defaultBg})`;
+    if (photoUrl === 'default' || !photoUrl) return `url(https://i.ibb.co/JFvtGtPJ/default-bg.png)`;
     return `url(${photoUrl})`;
   };
   
@@ -189,22 +188,22 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
           <div className="absolute bottom-0 left-0 w-full h-3 bg-[#CE2B37]" />
           
           <div className="h-full flex flex-col items-center justify-center space-y-4 py-8">
-            <div className="p-3 bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
-              <QRCode
-                value={qrText || 'Please enter QR code text'}
-                size={120}
-                level="H"
-                fgColor="#1E293B"
-                bgColor="#FFFFFF"
-                data-testid="qr-code"
-              />
-            </div>
-            
-            {number && (
-              <div className="text-center">
-                <span className="font-medium text-slate-700 tracking-wider uppercase">{number}</span>
+            {qrText && (
+              <div className="p-3 bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
+                <QRCode
+                  value={qrText}
+                  size={120}
+                  level="H"
+                  fgColor="#1E293B"
+                  bgColor="#FFFFFF"
+                  data-testid="qr-code"
+                />
               </div>
             )}
+            
+            <div className="text-center">
+              <span className="font-medium text-slate-700 tracking-wider uppercase">{number}</span>
+            </div>
           </div>
         </div>
       </div>
