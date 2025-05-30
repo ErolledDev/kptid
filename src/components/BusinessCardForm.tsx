@@ -155,7 +155,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
               value={cardData.number}
               onChange={handleChange}
               placeholder="123 456 789 012"
-              maxLength={14}
+              maxLength={15}
               className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
@@ -182,7 +182,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
                 name="group"
                 value={cardData.group}
                 onChange={handleChange}
-                placeholder="4-2"
+                placeholder="example: 4-2"
                 maxLength={4}
                 className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
               />
