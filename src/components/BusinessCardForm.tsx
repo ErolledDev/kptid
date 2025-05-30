@@ -60,14 +60,6 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
       icon: <ChevronRight className="h-4 w-4" />
     },
     {
-      id: 'number',
-      label: 'ID Number (12 characters)',
-      placeholder: '123 456 789 012',
-      value: cardData.number,
-      maxLength: 14, // Account for spaces
-      icon: <ChevronRight className="h-4 w-4" />
-    },
-    {
       id: 'locale',
       label: 'Lokal',
       placeholder: 'ENTER YOUR LOKAL',
@@ -81,14 +73,6 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
       placeholder: 'ENTER YOUR DISTRITO',
       value: cardData.district,
       maxLength: 20,
-      icon: <ChevronRight className="h-4 w-4" />
-    },
-    {
-      id: 'group',
-      label: 'Purok at Group (4 characters)',
-      placeholder: '4-2',
-      value: cardData.group,
-      maxLength: 4,
       icon: <ChevronRight className="h-4 w-4" />
     }
   ];
@@ -139,10 +123,60 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
           </motion.div>
         ))}
 
+        {/* ID Number and Purok at Group in one row */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: formFields.length * 0.1 }}
+          className="grid grid-cols-2 gap-4"
+        >
+          <div className="group">
+            <label htmlFor="number" className="label group-focus-within:text-inc-green transition-colors duration-200">
+              ID Number <span className="text-slate-400 text-xs">(12 chars)</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                id="number"
+                name="number"
+                value={cardData.number}
+                onChange={handleChange}
+                placeholder="123 456 789 012"
+                maxLength={14}
+                className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
+                <ChevronRight className="h-4 w-4" />
+              </div>
+            </div>
+          </div>
+
+          <div className="group">
+            <label htmlFor="group" className="label group-focus-within:text-inc-green transition-colors duration-200">
+              Purok at Group <span className="text-slate-400 text-xs">(4 chars)</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                id="group"
+                name="group"
+                value={cardData.group}
+                onChange={handleChange}
+                placeholder="4-2"
+                maxLength={4}
+                className="input-field pl-4 pr-10 group-focus-within:border-inc-green group-focus-within:ring-inc-green/20 uppercase"
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-inc-green transition-colors duration-200">
+                <ChevronRight className="h-4 w-4" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: (formFields.length + 1) * 0.1 }}
           className="group"
         >
           <label className="label group-focus-within:text-inc-green transition-colors duration-200">
@@ -176,7 +210,7 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: (formFields.length + 1) * 0.1 }}
+          transition={{ duration: 0.3, delay: (formFields.length + 2) * 0.1 }}
           className="pt-2"
         >
           <label className="label mb-3">Background Image</label>
@@ -247,38 +281,36 @@ export const BusinessCardForm: React.FC<BusinessCardFormProps> = ({
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: (formFields.length + 2) * 0.1 }}
-        className="mt-8 bg-blue-50 rounded-lg p-4 border border-blue-100"
+        transition={{ duration: 0.3, delay: (formFields.length + 3) * 0.1 }}
+        className="mt-8 bg-blue-50 rounded-lg p-4 flex items-start gap-3"
       >
-        <div className="flex gap-3">
-          <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-            <Camera className="h-5 w-5 text-blue-600" />
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-blue-900">Tips for Best Results</h3>
-            <ul className="mt-2 space-y-1.5 text-sm text-blue-800">
-              <li className="flex items-center gap-2">
-                <ChevronRight className="h-3 w-3 text-blue-500" />
-                Fill in all fields for a complete identification card
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="h-3 w-3 text-blue-500" />
-                ID numbers are automatically formatted (123 456 789 012)
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="h-3 w-3 text-blue-500" />
-                Choose from default, blank, or custom background
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="h-3 w-3 text-blue-500" />
-                All text will be automatically converted to uppercase
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="h-3 w-3 text-blue-500" />
-                Print the ID card wallet size
-              </li>
-            </ul>
-          </div>
+        <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+          <Camera className="h-5 w-5 text-blue-600" />
+        </div>
+        <div>
+          <h3 className="text-sm font-semibold text-blue-900">Tips for Best Results</h3>
+          <ul className="mt-2 space-y-1.5 text-sm text-blue-800">
+            <li className="flex items-center gap-2">
+              <ChevronRight className="h-3 w-3 text-blue-500" />
+              Fill in all fields for a complete identification card
+            </li>
+            <li className="flex items-center gap-2">
+              <ChevronRight className="h-3 w-3 text-blue-500" />
+              ID numbers are automatically formatted (123 456 789 012)
+            </li>
+            <li className="flex items-center gap-2">
+              <ChevronRight className="h-3 w-3 text-blue-500" />
+              Choose from default, blank, or custom background
+            </li>
+            <li className="flex items-center gap-2">
+              <ChevronRight className="h-3 w-3 text-blue-500" />
+              All text will be automatically converted to uppercase
+            </li>
+            <li className="flex items-center gap-2">
+              <ChevronRight className="h-3 w-3 text-blue-500" />
+              Print the ID card wallet size
+            </li>
+          </ul>
         </div>
       </motion.div>
       
