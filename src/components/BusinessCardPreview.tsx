@@ -41,7 +41,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
       });
 
       // Pre-load background image if exists
-      const bgImage = photoUrl === 'default' ? 'https://i.ibb.co/JFvtGtPJ/default-bg.png' : photoUrl;
+      const bgImage = photoUrl === 'default' ? 'https://i.ibb.co/chWG16PG/default.jpg' : photoUrl;
       if (bgImage && bgImage !== '') {
         await new Promise((resolve, reject) => {
           const img = new Image();
@@ -128,7 +128,7 @@ export const BusinessCardPreview: React.FC<BusinessCardPreviewProps> = ({ cardDa
         <div id="front-card" className="w-[342.4px] h-[215.92px] rounded-xl overflow-hidden card-shadow relative bg-white">
           {/* Background Image */}
           <div 
-            className="absolute inset-3 rounded-lg overflow-hidden bg-center bg-no-repeat bg-contain"
+            className="absolute inset-0 bg-center bg-cover bg-no-repeat"
             style={{
               backgroundImage: getBackgroundImage(),
               opacity: 0.55
